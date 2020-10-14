@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { LicenseManager } from '@ag-grid-enterprise/core';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+LicenseManager.setLicenseKey(`${process.env.REACT_APP_AG_GRID_LICENCE_KEY}`);
 ReactDOM.render(
   <React.StrictMode>
     <App />
