@@ -24,33 +24,46 @@ const App = () => {
 
     const columnDefs = [
         {
+            headerName: 'Year',
+            showRowGroup: 'Year',
+            cellRenderer: 'agGroupCellRenderer',
+            minWidth: 200,
+            valueGetter: params => params.data.Year,
+        },
+        {
             field: 'Year',
             rowGroup: true,
-            hide:true
-            // cellRenderer: 'agGroupCellRenderer',
+            hide: true,
+            cellRenderer: 'agGroupCellRenderer',
+            aggFunc: myCustomAggFunc,
             // cellRendererParams: {
             //     innerRenderer: 'groupRowInnerRenderer',
             //     //  suppressCount: true,
             // }
         },
         {
+            headerName: 'Geography',
             field: 'Geography',
             aggFunc: myCustomAggFunc
 
         },
-        {field: 'Company',
-            aggFunc: myCustomAggFunc},
-        {field: 'status',
-            },
+        {
+            headerName: 'Company',
+            field: 'Company',
+            aggFunc: myCustomAggFunc
+        },
+        {
+            field: 'status',
+        },
         {
             field: 'forms',
             aggFunc: 'sum',
-            //cellRenderer: 'agGroupCellRenderer',
+            //  cellRenderer: 'agGroupCellRenderer',
             //  enableValue:true,
-            // cellRendererParams: {
-            //     innerRenderer: 'groupRowInnerRenderer',
-            //     //  suppressCount: true,
-            // }
+            //  cellRendererParams: {
+            //      innerRenderer: 'groupRowInnerRenderer',
+            //      //  suppressCount: true,
+            //  }
         },
     ]
     const defaultColDefs = {
@@ -65,14 +78,14 @@ const App = () => {
                 columnDefs={columnDefs}
                 //groupIncludeFooter={true}
                 rowData={rowData}
-                groupMultiAutoColumn={true}
-                 suppressDragLeaveHidesColumns={true}
+                // groupMultiAutoColumn={true}
+                suppressDragLeaveHidesColumns={true}
                 // groupUseEntireRow={true}
                 groupRemoveSingleChildren={true}
-               //  groupRemoveLowestSingleChildren={true}
-                groupSuppressBlankHeader={true}
+                //  groupSuppressBlankHeader={true}
                 defaultColDef={defaultColDefs}
                 animateRows={true}
+                groupSuppressAutoColumn={true}
 
 
             >
