@@ -13,6 +13,9 @@ const App = () => {
         {Year: "2021", Geography: "Singapore", Company: 'Nokia', status: 'Submitted', forms: 200},
         {Year: "2050", Geography: "China", Company: 'Samsung', status: 'Submitted', forms: 200},
         {Year: "2060", Geography: "India", Company: 'Micromax', status: 'Submitted', forms: 200},
+        {Year: "2060", Geography: "Thailand", Company: 'Micromax', status: 'Submitted', forms: 200},
+        {Year: "2060", Geography: "India", Company: 'Micromax', status: 'Submitted', forms: 200},
+        {Year: "2060", Geography: "India", Company: 'Micromax', status: 'Submitted', forms: 200},
 
     ]);
 
@@ -21,8 +24,24 @@ const App = () => {
         values.forEach((value) => geographies.add(value));
         return [...geographies.values()].join(',');
     }
-
+    const log = (params) => {
+        console.log(params)
+    }
     const columnDefs = [
+        {
+            headerName: '#',
+            width: 45,
+            minWidth: 45,
+            suppressMovable: true,
+            cellClass: 'table-cell table-serial',
+            valueGetter: (params) => {
+                log(params);
+                return (params.node.firstChild && params.node.lastChild) || params.node.allChildrenCount ? params.node.rowIndex + 1 : String.fromCharCode(97 + params.node.childIndex)
+            },
+            pinned: 'left',
+            suppressSizeToFit: true
+
+        },
         {
             headerName: 'Year',
             showRowGroup: 'Year',
@@ -70,11 +89,25 @@ const App = () => {
         flex: 1
     }
 
+    const rowStyling = (params) => {
+
+        if (params.node.allChildrenCount !== null) {
+            return {background: 'yellow'};
+        }
+
+    }
+
+    const onGridReady = (params) => {
+        console.log(aarams);
+
+    }
+
 
     return (
         <div className="ag-theme-alpine" style={{height: 1400, width: 1600}}>
             <AgGridReact
                 modules={[RowGroupingModule]}
+                onGridReady={onGridReady}
                 columnDefs={columnDefs}
                 //groupIncludeFooter={true}
                 rowData={rowData}
@@ -86,6 +119,7 @@ const App = () => {
                 defaultColDef={defaultColDefs}
                 animateRows={true}
                 groupSuppressAutoColumn={true}
+                getRowStyle={rowStyling}
 
 
             >
